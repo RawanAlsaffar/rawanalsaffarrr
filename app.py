@@ -672,7 +672,7 @@ def get_ca_summary(df_full, ca_id, year):
 with st.sidebar:
     logo_path = os.path.join(BASE_DIR, 'SRCAlogo_local_cmyk.jpg')
     if os.path.exists(logo_path):
-        st.image(logo_path, use_container_width=True)
+        st.image(logo_path, width='stretch')
     else:
         st.markdown(
             '<h2 style="text-align:center; color:#c0392b; font-size:18px;"> الهلال الأحمر السعودي</h2>',
@@ -948,7 +948,7 @@ with tab1:
         title_text='الاستهلاك (kWh)', title_font=dict(color='#1a1a2e', size=13),
         tickfont=dict(color='#1a1a2e', size=12)
     ))
-    st.plotly_chart(fig_trend, use_container_width=True, key="trend_line")
+    st.plotly_chart(fig_trend, width='stretch', key="trend_line")
 
     #  توزيع المناطق ومقارنة 2024 vs 2025
     col_reg, col_cmp = st.columns(2)
@@ -972,7 +972,7 @@ with tab1:
         fig_reg.update_layout(**light_layout(height=300, showlegend=False))
         fig_reg.update_xaxes(**light_xaxis(tickformat=',.0f'))
         fig_reg.update_yaxes(**light_yaxis())
-        st.plotly_chart(fig_reg, use_container_width=True, key="region_bar")
+        st.plotly_chart(fig_reg, width='stretch', key="region_bar")
 
     with col_cmp:
         st.markdown(section_header('مقارنة', 'مقارنة الاستهلاك الشهري 2024 مقابل 2025'), unsafe_allow_html=True)
@@ -1010,7 +1010,7 @@ with tab1:
             title_text='الاستهلاك (kWh)', title_font=dict(color='#1a1a2e', size=13),
             tickfont=dict(color='#1a1a2e', size=12)
         ))
-        st.plotly_chart(fig_cmp, use_container_width=True, key="compare_bar")
+        st.plotly_chart(fig_cmp, width='stretch', key="compare_bar")
 
     #  التوزيع الموسمي
     season_map = {
@@ -1036,7 +1036,7 @@ with tab1:
         textfont=dict(color='#1a1a2e', size=13)
     ))
     fig_season.update_layout(**light_layout(height=280, title='توزيع الاستهلاك الموسمي', showlegend=False))
-    st.plotly_chart(fig_season, use_container_width=True, key="season_pie")
+    st.plotly_chart(fig_season, width='stretch', key="season_pie")
 
 #
 # تبويب 2: التحليل الإحصائي
@@ -1069,7 +1069,7 @@ with tab2:
     ))
     fig_rca.update_xaxes(**light_xaxis())
     fig_rca.update_yaxes(**light_yaxis())
-    st.plotly_chart(fig_rca, use_container_width=True, key="rca_bar")
+    st.plotly_chart(fig_rca, width='stretch', key="rca_bar")
 
     #  مؤشرات النمو السنوي
     st.markdown(section_header('نمو', 'مؤشرات النمو السنوي (2024 → 2025)'), unsafe_allow_html=True)
@@ -1161,7 +1161,7 @@ with tab2:
         fig_up.update_xaxes(**light_xaxis(tickformat=',.0f'))
         fig_up.update_yaxes(**light_yaxis(tickfont=dict(color='#1a1a2e', size=12), type='category', dtick=1))
         fig_up.update_layout(margin=dict(l=200))
-        st.plotly_chart(fig_up, use_container_width=True, key='top_ca')
+        st.plotly_chart(fig_up, width='stretch', key='top_ca')
     with col_down:
         st.markdown(section_header('أدنى', f'أدنى 5 حسابات تجميعية {_metric_label} ({dyn_yr})'), unsafe_allow_html=True)
         bot_ca = (
@@ -1186,7 +1186,7 @@ with tab2:
         fig_down.update_xaxes(**light_xaxis(tickformat=',.0f'))
         fig_down.update_yaxes(**light_yaxis(tickfont=dict(color='#1a1a2e', size=12), type='category', dtick=1))
         fig_down.update_layout(margin=dict(l=200))
-        st.plotly_chart(fig_down, use_container_width=True, key='bot_ca')
+        st.plotly_chart(fig_down, width='stretch', key='bot_ca')
     
 #
 # تبويب 3: إدارة الأصول
@@ -1238,7 +1238,7 @@ with tab3:
             'الاستهلاك (kWh)': '{:,.0f}',
             'الفاتورة (SAR)': '{:,.0f}',
         }),
-        use_container_width=True, hide_index=True
+        width='stretch', hide_index=True
     )
     #  اختيار حساب تجميعي لعرض عداداته
     st.markdown(section_header('عدادات', 'تفاصيل عدادات الحساب التجميعي'), unsafe_allow_html=True)
@@ -1307,7 +1307,7 @@ with tab3:
             ticktext=[MONTH_NAMES[i] for i in range(1, 13)]
         ))
         fig_ca_detail.update_yaxes(**light_yaxis(tickformat=',.0f'))
-        st.plotly_chart(fig_ca_detail, use_container_width=True, key="ca_detail_chart")
+        st.plotly_chart(fig_ca_detail, width='stretch', key="ca_detail_chart")
 
         # جدول العدادات التابعة
         st.markdown(section_header('عدادات', f'العدادات التابعة للحساب {search_ca} - سنة {asset_year}'), unsafe_allow_html=True)
@@ -1328,7 +1328,7 @@ with tab3:
                 'الاستهلاك (kWh)': '{:,.0f}',
                 'المبلغ (SAR)': '{:,.2f}'
             }).map(lambda v: 'background-color: #fff5f5; color: #c0392b;' if isinstance(v, (int, float)) and v > 0 else '', subset=['الاستهلاك (kWh)']),
-            use_container_width=True,
+            width='stretch',
             hide_index=True
         )
     else:
@@ -1362,7 +1362,7 @@ with tab3:
                 'استهلاك_2025': '{:,.0f}',
                 'التغيير_%': '{:+.1f}%'
             }).map(lambda v: 'background-color: #e8f8e8; color: #27ae60;' if isinstance(v, (int, float)) and v > 0 else ('background-color: #fde8e8; color: #c0392b;' if isinstance(v, (int, float)) and v < 0 else ''), subset=['التغيير_%']),
-            use_container_width=True,
+            width='stretch',
             hide_index=True
         )
     with cmp_col2:
@@ -1405,7 +1405,7 @@ with tab3:
             tickformat='d',
             title_text='عدد الحسابات', title_font=dict(color='#1a1a2e', size=12)
         ))
-        st.plotly_chart(fig_share, use_container_width=True, key="region_share")
+        st.plotly_chart(fig_share, width='stretch', key="region_share")
 
     #  الحسابات المرشحة للمراجعة
     st.markdown(section_header('تنبيه', 'الحسابات المرشحة للمراجعة'), unsafe_allow_html=True)
@@ -1462,7 +1462,7 @@ with tab3:
                 lambda v: 'background-color:#fff0f0;color:#c0392b;font-weight:700;' if isinstance(v, (int, float)) and v > 0 else '',
                 subset=['الفاتورة (SAR)']
             ),
-            use_container_width=True, hide_index=True
+            width='stretch', hide_index=True
         )
     else:
         st.info("لا توجد عدادات باستهلاك صفري مع فاتورة في الفلتر المحدد")
@@ -1503,7 +1503,7 @@ with tab3:
                     'الاستهلاك 2024 (kWh)': '{:,.0f}',
                     'الفاتورة 2024 (SAR)': '{:,.2f}'
                 }),
-                use_container_width=True, hide_index=True
+                width='stretch', hide_index=True
             )
         else:
             st.info("لا توجد حسابات مفقودة بين 2024 و2025")
@@ -1532,7 +1532,7 @@ with tab3:
                     'الاستهلاك 2025 (kWh)': '{:,.0f}',
                     'الفاتورة 2025 (SAR)': '{:,.2f}'
                 }),
-                use_container_width=True, hide_index=True
+                width='stretch', hide_index=True
             )
         else:
             st.info("لا توجد حسابات مفقودة بين 2025 و2026")
@@ -1567,7 +1567,7 @@ with tab_geo:
         fig_geo_bar.update_layout(**light_layout(height=320, title='إجمالي الاستهلاك بالمنطقة', showlegend=False))
         fig_geo_bar.update_xaxes(**light_xaxis())
         fig_geo_bar.update_yaxes(**light_yaxis(tickformat=',.0f'))
-        st.plotly_chart(fig_geo_bar, use_container_width=True, key="geo_bar")
+        st.plotly_chart(fig_geo_bar, width='stretch', key="geo_bar")
 
     with geo_col2:
         fig_geo_pie = go.Figure(go.Pie(
@@ -1581,7 +1581,7 @@ with tab_geo:
             textfont=dict(color='#1a1a2e', size=13)
         ))
         fig_geo_pie.update_layout(**light_layout(height=320, title='نسبة الاستهلاك بالمنطقة', showlegend=False))
-        st.plotly_chart(fig_geo_pie, use_container_width=True, key="geo_pie")
+        st.plotly_chart(fig_geo_pie, width='stretch', key="geo_pie")
 
     # رسم الاستهلاك الشهري بالمنطقة
     st.markdown(section_header('شهري', 'الاستهلاك الشهري حسب المنطقة'), unsafe_allow_html=True)
@@ -1643,7 +1643,7 @@ with tab_geo:
         tickformat=',.0f',
         tickfont=dict(color='#1a1a2e', size=13)
     ))
-    st.plotly_chart(fig_reg_monthly, use_container_width=True, key="reg_monthly")
+    st.plotly_chart(fig_reg_monthly, width='stretch', key="reg_monthly")
 
     # جدول ملخص المناطق
     st.markdown(section_header('ملخص', 'جدول ملخص المناطق'), unsafe_allow_html=True)
@@ -1659,7 +1659,7 @@ with tab_geo:
             'المبلغ (SAR)': '{:,.2f}',
             'نسبة الاستهلاك %': '{:.1f}%'
         }).map(lambda v: 'background-color: #fff5f5; color: #c0392b;' if isinstance(v, (int, float)) and v > 0 else '', subset=['الاستهلاك (kWh)']),
-        use_container_width=True
+        width='stretch'
     )
     #  خريطة المدن بالإحداثيات الحقيقية من البيانات
     st.markdown(section_header('خريطة', 'خريطة الاستهلاك حسب المدن'), unsafe_allow_html=True)
@@ -1730,7 +1730,7 @@ with tab_geo:
             title=dict(text='خريطة الاستهلاك حسب المدن - المملكة العربية السعودية', font=dict(size=14, color='#8b0000'), x=0.01)
         )
         fig_map.update_layout(**_geo_layout)
-        st.plotly_chart(fig_map, use_container_width=True, key="saudi_map")
+        st.plotly_chart(fig_map, width='stretch', key="saudi_map")
         # جدول المدن
         st.markdown(section_header('مدن', 'جدول الاستهلاك حسب المدن'), unsafe_allow_html=True)
         city_tbl = city_geo[['Region_City', 'Consumption', 'Bill', 'CAs', 'Contracts']].copy()
@@ -1743,7 +1743,7 @@ with tab_geo:
                 'الفاتورة (SAR)': '{:,.2f}',
                 'نسبة %': '{:.1f}%'
             }),
-            use_container_width=True, hide_index=True
+            width='stretch', hide_index=True
         )
     else:
         st.info("لا توجد بيانات جغرافية متاحة للفلتر المحدد")
@@ -1822,7 +1822,7 @@ with tab_geo:
                 margin=dict(l=0, r=120, t=40, b=0),
                 title=dict(text=f'مواقع المكاتب ({len(office_geo)} مكتب) - المملكة العربية السعودية', font=dict(size=14, color='#8b0000'), x=0.01)
             )
-            st.plotly_chart(fig_offices, use_container_width=True, key="offices_map")
+            st.plotly_chart(fig_offices, width='stretch', key="offices_map")
             # جدول أعلى المكاتب استهلاكاً
             st.markdown(section_header('أعلى', 'أعلى 15 مكتباً استهلاكاً'), unsafe_allow_html=True)
             _top_offices = office_geo[['Office', 'Region_City', 'Consumption', 'Bill', 'Contracts']].head(15).copy()
@@ -1834,7 +1834,7 @@ with tab_geo:
                     'الفاتورة (SAR)': '{:,.2f}',
                     'نسبة %': '{:.1f}%'
                 }),
-                use_container_width=True, hide_index=True
+                width='stretch', hide_index=True
             )
 
 #
@@ -2075,7 +2075,7 @@ with tab4:
 
     st.dataframe(
         models_summary_df.style.apply(_hl_best, axis=1),
-        use_container_width=True, hide_index=True
+        width='stretch', hide_index=True
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
@@ -2124,7 +2124,7 @@ with tab4:
         ticktext=[MONTH_NAMES[i] for i in range(1, 13)]
     ))
     fig_forecast.update_yaxes(**light_yaxis(tickformat=',.0f'))
-    st.plotly_chart(fig_forecast, use_container_width=True, key="forecast_main")
+    st.plotly_chart(fig_forecast, width='stretch', key="forecast_main")
 
     #  مقارنة Q1
     if len(q1_comp_agg) > 0:
@@ -2145,7 +2145,7 @@ with tab4:
             fig_q1.update_layout(barmode='group')
             fig_q1.update_xaxes(**light_xaxis())
             fig_q1.update_yaxes(**light_yaxis(tickformat=',.0f'))
-            st.plotly_chart(fig_q1, use_container_width=True, key="q1_comp")
+            st.plotly_chart(fig_q1, width='stretch', key="q1_comp")
 
         with q1_col2:
             q1_comp_agg['خطأ_%'] = (
@@ -2165,7 +2165,7 @@ with tab4:
             fig_err.update_layout(**light_layout(height=300, title='نسبة الخطأ في التنبؤ (%)', showlegend=False))
             fig_err.update_xaxes(**light_xaxis())
             fig_err.update_yaxes(**light_yaxis(ticksuffix='%'))
-            st.plotly_chart(fig_err, use_container_width=True, key="q1_err")
+            st.plotly_chart(fig_err, width='stretch', key="q1_err")
 
     #  توقعات الأرباع
     st.markdown(section_header('أرباع', 'توقعات الأرباع 2026'), unsafe_allow_html=True)
@@ -2231,7 +2231,7 @@ with tab4:
         fig_q.update_xaxes(**light_xaxis())
         fig_q.update_yaxes(**light_yaxis(tickformat=',.0f'))
         with q_chart_cols[idx]:
-            st.plotly_chart(fig_q, use_container_width=True, key=f"q{idx+2}_chart")
+            st.plotly_chart(fig_q, width='stretch', key=f"q{idx+2}_chart")
 
     #  توقعات 2026 حسب المدن
     st.markdown(section_header('مدن', 'توقعات الاستهلاك والفواتير 2026 حسب المدن'), unsafe_allow_html=True)
@@ -2320,7 +2320,7 @@ with tab4:
         fig_city_pred.update_layout(**_city_pred_layout)
         fig_city_pred.update_xaxes(**light_xaxis(tickangle=-30))
         fig_city_pred.update_yaxes(**light_yaxis(tickformat=',.0f'))
-        st.plotly_chart(fig_city_pred, use_container_width=True, key="city_pred_bar")
+        st.plotly_chart(fig_city_pred, width='stretch', key="city_pred_bar")
         # جدول ملخص المدن (kWh + SAR معاً)
         st.markdown(section_header('جدول', 'جدول التوقعات السنوية حسب المدن (إجمالي كل سنة كاملة)'), unsafe_allow_html=True)
         city_pred_tbl = city_pred_cmp[['Region_City','Consumption_2024','Bill_2024','Consumption_2025','Bill_2025','Predicted_Consumption','Bill_2026_pred']].copy()
@@ -2342,7 +2342,7 @@ with tab4:
                 'نمو kWh 25→26 %': '{:+.1f}%',
                 'نمو SAR 25→26 %': '{:+.1f}%',
             }),
-            use_container_width=True, hide_index=True
+            width='stretch', hide_index=True
         )
         # بطاقات أعلى 3 مدن متوقعة
         st.markdown(section_header('تنبيه', 'المدن الأعلى في التوقعات (تستحق المتابعة)'), unsafe_allow_html=True)
@@ -2393,7 +2393,7 @@ with tab4:
     fig_summary.update_layout(**light_layout(height=320, showlegend=False))
     fig_summary.update_xaxes(**light_xaxis())
     fig_summary.update_yaxes(**light_yaxis(tickformat=',.0f'))
-    st.plotly_chart(fig_summary, use_container_width=True, key="summary_bar")
+    st.plotly_chart(fig_summary, width='stretch', key="summary_bar")
 
 #
 # تذييل الصفحة
